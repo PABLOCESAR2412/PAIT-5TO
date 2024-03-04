@@ -10,6 +10,7 @@ use App\Models\Venta;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ventaController extends Controller
 {
@@ -25,12 +26,12 @@ class ventaController extends Controller
      */
     public function index()
     {
-        $ventas = Venta::with(['comprobante','cliente.persona','user'])
-        ->where('estado',1)
-        ->latest()
-        ->get();
+        $ventas = Venta::with(['comprobante', 'cliente.persona', 'user'])
+            ->where('estado', 1)
+            ->latest()
+            ->get();
 
-        return view('venta.index',compact('ventas'));
+        return view('venta.index', compact('ventas'));
     }
 
     /**
@@ -69,7 +70,7 @@ class ventaController extends Controller
      */
     public function store(StoreVentaRequest $request)
     {
-        try{
+        try {
             DB::beginTransaction();
 
             //Llenar mi tabla venta
@@ -86,7 +87,7 @@ class ventaController extends Controller
             $siseArray = count($arrayProducto_id);
             $cont = 0;
 
-            while($cont < $siseArray){
+            while ($cont < $siseArray) {
                 $venta->productos()->syncWithoutDetaching([
                     $arrayProducto_id[$cont] => [
                         'cantidad' => $arrayCantidad[$cont],
@@ -101,20 +102,20 @@ class ventaController extends Controller
                 $cantidad = intval($arrayCantidad[$cont]);
 
                 DB::table('productos')
-                ->where('id',$producto->id)
-                ->update([
-                    'stock' => $stockActual - $cantidad
-                ]);
+                    ->where('id', $producto->id)
+                    ->update([
+                        'stock' => $stockActual - $cantidad
+                    ]);
 
                 $cont++;
             }
 
             DB::commit();
-        }catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
         }
 
-        return redirect()->route('ventas.index')->with('success','Venta exitosa');
+        return redirect()->route('ventas.index')->with('success', 'Venta exitosa');
     }
 
     /**
@@ -122,7 +123,7 @@ class ventaController extends Controller
      */
     public function show(Venta $venta)
     {
-        return view('venta.show',compact('venta'));
+        return view('venta.show', compact('venta'));
     }
 
     /**
@@ -146,11 +147,22 @@ class ventaController extends Controller
      */
     public function destroy(string $id)
     {
-        Venta::where('id',$id)
-        ->update([
-            'estado' => 0
-        ]);
+        Venta::where('id', $id)
+            ->update([
+                'estado' => 0
+            ]);
 
-        return redirect()->route('ventas.index')->with('success','Venta eliminada');
+        return redirect()->route('ventas.index')->with('success', 'Venta eliminada');
+    }
+    public function pdf(string $id)
+    {
+        $venta_pdf = Venta::with(['user', 'cliente', 'comprobante', 'productos'])->find($id);
+
+        if (!$venta_pdf) {
+            return response()->json(['error' => 'Venta not found'], 404);
+        }   
+
+        $pdf = Pdf::loadView('generar-pdf', compact('venta_pdf'));
+        return $pdf->download('reporte_venta.pdf');
     }
 }

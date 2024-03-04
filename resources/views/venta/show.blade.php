@@ -30,7 +30,8 @@
 </div>
 
 <div class="container-fluid">
-
+    <a href="{{ route('descargar-pdf', ['id' => $venta->id]) }}"  class="btn btn-warning">Generar PDF</a>
+    <br><br>
     <div class="card mb-4">
 
         <div class="card-header">
@@ -216,6 +217,7 @@
             </table>
         </div>
     </div>
+    
 
 </div>
 @endsection

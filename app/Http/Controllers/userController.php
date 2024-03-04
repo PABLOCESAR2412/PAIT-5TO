@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
@@ -128,4 +129,14 @@ class userController extends Controller
 
         return redirect()->route('users.index')->with('success','Usuario eliminado');
     }
+
+    /*public function pdf(string $id)
+    {   
+        $user_pdf = User::find($id);
+        if (!$id) {
+            return response()->json(['error' => 'Cliente not found'], 404);
+        }
+        $pdf = Pdf::loadView('generar-pdf', compact('user_pdf'));
+        return $pdf->download('reporte_venta.pdf');
+    }*/
 }

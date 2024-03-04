@@ -1,5 +1,5 @@
 <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <nav class="sb-sidenav accordion sb-sidenav-info" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
 
@@ -26,7 +26,7 @@
                     Pages
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                <div-- class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             Authentication
@@ -51,7 +51,7 @@
                             </nav>
                         </div>
                     </nav>
-                </div--->
+                </div-->
 
                 <div class="sb-sidenav-menu-heading">Modulos</div>
 
@@ -156,7 +156,7 @@
 
             </div>
         </div>
-        <div class="sb-sidenav-footer">
+        <div class="sb-sidenav-footer bg-dark text-light">
             <div class="small">Bienvenido:</div>
             {{ auth()->user()->name }}
         </div>

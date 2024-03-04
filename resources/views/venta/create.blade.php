@@ -33,7 +33,7 @@
 
                         <!-----Producto---->
                         <div class="col-12">
-                            <select name="producto_id" id="producto_id" class="form-control selectpicker" data-live-search="true" data-size="1" title="Busque un producto aquí">
+                            <select name="producto_id" id="producto_id" class="form-control selectpicker" data-live-search="true" data-size="4" title="Busque un producto aquí">
                                 @foreach ($productos as $item)
                                 <option value="{{$item->id}}-{{$item->stock}}-{{$item->precio_venta}}">{{$item->codigo.' '.$item->nombre}}</option>
                                 @endforeach
@@ -109,7 +109,7 @@
                                         </tr>
                                         <tr>
                                             <th></th>
-                                            <th colspan="4">IGV %</th>
+                                            <th colspan="4">IVA 12%</th>
                                             <th colspan="2"><span id="igv">0</span></th>
                                         </tr>
                                         <tr>
@@ -177,7 +177,7 @@
 
                         <!--Impuesto---->
                         <div class="col-sm-6">
-                            <label for="impuesto" class="form-label">Impuesto(IGV):</label>
+                            <label for="impuesto" class="form-label">Impuesto(IVA):</label>
                             <input readonly type="text" name="impuesto" id="impuesto" class="form-control border-success">
                             @error('impuesto')
                             <small class="text-danger">{{ '*'.$message }}</small>
@@ -296,7 +296,7 @@
                     //Calcular valores
                     subtotal[cont] = round(cantidad * precioVenta - descuento);
                     sumas += subtotal[cont];
-                    igv = round(sumas / 100 * impuesto);
+                    igv = round(sumas * 0.12);
                     total = round(sumas + igv);
 
                     //Crear la fila

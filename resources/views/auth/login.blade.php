@@ -11,8 +11,7 @@
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-
-<body class="bg-primary">
+<body class="bg-dark" background="assets/img/logo.png">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -62,14 +61,15 @@
             </main>
         </div>
         <div id="layoutAuthentication_footer">
-            <footer class="py-4 bg-light mt-auto">
+            <footer class="py-4 bg-dark mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                        <div class="text-light">Copyright &copy; Your Website 2022</div>
                         <div>
-                            <a href="#">Privacy Policy</a>
+                            <!--<a href="#">Privacy Policy</a>
                             &middot;
                             <a href="#">Terms &amp; Conditions</a>
+                            -->
                         </div>
                     </div>
                 </div>
